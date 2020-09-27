@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roll a dice</title>
+  <link rel="stylesheet" href="dice.css">
+</head>
+<body>
+  <h1>Welcome to Euro Hackpot!</h1>
+  <p>You are given a 1000 Euros to play with. Bet any amount up to 1000 and roll the dice. You only win when you land on number 6, winning amount is the bet amount multiplied by 6. In case you land on any other number, you lose the amount you have bet. Let's play! </p>
+  <div id="dice" class="side1" onclick="changeSide()">
+  </div>
+
+  <main id="balance">
+
+    <h2>Your account balance (EUR)</h2>
+    <div><h1 id="balance__amount">1000</h1></div>
+    <label for="bet__amount">Place bet</label>
+    <input type="text" name="bet__amount" id="bet__amount">
+    <button type="submit" id="bet__btn" onclick="bet()">Bet</button>
+    <h3 style="color: green", id="msg"></h3>
+    <br>
+    <hr>
+    <p>Want to collect money? Click here:</p>
+    <button type="submit" id="collect__money" onclick="collect__money()">Collect money</button>
+  
+  </main>
+
+
+  <script>
+
+    let balance = 1000;
+
+    const balanceStart = document.querySelector('#balance__amount');
+    balanceStart.textContent = balance;
+
+    const collect__money = () => {
+      const money = document.querySelector('#collect__money');
+      document.write('<div style="text-align: center"><h1>Congratulations!</h1> You won ' + balance + ' Euros. Contact us at <strong>money@hackpot.com</strong> to collect your money.</div>');
+    }
+
+    const bet = () => {
+      const elementMsg = document.querySelector('#msg');
+      elementMsg.textContent = 'Bet confirmed, now roll the dice!';
+
+      const elementBet = document.querySelector('#bet__amount');
+      const betValue = elementBet.value;
+      return betValue;
+
+    }
+
+    
+
+    let side = 1; 
+
+    const changeSide = () => {
+
+      // PART 1) Roll dice increased by 1;
+
+      // if (side === 6) {
+      //   side = 1;
+      // } else {
+      //   ++side;
+      // }
+
+      // PART 2) Random roll dice;
+
+      side = Math.floor(Math.random() * 6) + 1; 
+
+      const dice = document.querySelector('#dice');
+
+      if (side === 1) {
+        dice.className = 'side1';
+      } else if (side === 2) {
+        dice.className = 'side2';
+      } else if (side === 3) {
+        dice.className = 'side3';
+      } else if (side === 4) {
+        dice.className = 'side4';
+      } else if (side === 5) {
+        dice.className = 'side5';
+      } else if (side === 6) {
+        dice.className = 'side6';
+      } else {
+        return false;
+      }
+
+      const moneyBet = bet();
+
+      if (side === 6) {
+        balance = balance + (moneyBet * 6);
+        balanceStart.textContent = balance;
+      } else {
+        balance = balance - moneyBet;
+        balanceStart.textContent = balance;
+      }
+    }
+
+
+    // const bet = () => {
+    //   elementBet = document.querySelector('#bet__amount');
+    //   elementBtn = document.querySelector('#bet_btn');
+    //   elementBalance = document.querySelector('#balance__amount')
+
+    //   betValue = elementBet.value;
+    //   balanceValue = elementBet.value;
+    // }
+
+
+
+  </script>
+
+</body>
+</html>
